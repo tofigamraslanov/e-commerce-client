@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  AlertifyService,
-  MessagePosition,
-  MessageType,
-} from 'src/app/services/admin/alertify.service';
+  CustomAlertifyService,
+  AlertifyMessagePosition,
+  AlertifyMessageType,
+} from 'src/app/services/admin/custom-alertify.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,15 +11,15 @@ import {
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  constructor(private alertify: AlertifyService) {}
+  constructor(private alertify: CustomAlertifyService) {}
 
   ngOnInit(): void {}
 
   m() {
     this.alertify.message('Message', {
-      messageType: MessageType.Success,
+      messageType: AlertifyMessageType.Success,
       delay: 3,
-      position: MessagePosition.TopRight,
+      position: AlertifyMessagePosition.TopRight,
     });
   }
   d() {

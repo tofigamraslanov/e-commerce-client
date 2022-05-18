@@ -4,7 +4,7 @@ declare var alertify: any;
 @Injectable({
   providedIn: 'root',
 })
-export class AlertifyService {
+export class CustomAlertifyService {
   constructor() {}
 
   message(message: string, options: Partial<AlertifyOptions>) {
@@ -20,13 +20,13 @@ export class AlertifyService {
 }
 
 export class AlertifyOptions {
-  messageType: MessageType = MessageType.Message;
-  position: MessagePosition = MessagePosition.TopRight;
+  messageType: AlertifyMessageType = AlertifyMessageType.Message;
+  position: AlertifyMessagePosition = AlertifyMessagePosition.TopRight;
   delay: number = 3;
   isDismissOthers: boolean = false;
 }
 
-export enum MessageType {
+export enum AlertifyMessageType {
   Error = 'error',
   Message = 'message',
   Notify = 'notify',
@@ -34,7 +34,7 @@ export enum MessageType {
   Warning = 'warning',
 }
 
-export enum MessagePosition {
+export enum AlertifyMessagePosition {
   TopRight = 'top-right',
   TopCenter = 'top-center',
   TopLeft = 'top-left',

@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { AlertifyService } from './alertify.service';
+import { CustomToastrService } from './custom-toastr.service';
 
-describe('AlertifyService', () => {
-  let service: AlertifyService;
+describe('CustomToastrService', () => {
+  let service: CustomToastrService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(AlertifyService);
+    service = TestBed.inject(CustomToastrService);
   });
 
   it('should be created', () => {
