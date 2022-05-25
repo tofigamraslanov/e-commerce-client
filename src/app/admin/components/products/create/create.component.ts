@@ -36,13 +36,41 @@ export class CreateComponent extends BaseComponent implements OnInit {
     create_product.stock = parseInt(stock.value);
     create_product.price = parseFloat(price.value);
 
-    this.productService.create(create_product, () => {
-      this.hideSpinner(SpinnerType.BallAtom);
-      this.alertifyService.message('Product successfuly added!', {
+    if (!name.value) {
+      this.alertifyService.message('Name is Required', {
         isDismissOthers: true,
-        messageType: AlertifyMessageType.Success,
+        messageType: AlertifyMessageType.Error,
         position: AlertifyMessagePosition.TopRight,
       });
-    });
+      return;
+    }
+
+    if (parseInt(stock.value) <= 0) {
+      this.alertifyService.message('Stock must be greater than or equal to 0', {
+        isDismissOthers: true,
+        messageType: AlertifyMessageType.Error,
+        position: AlertifyMessagePosition.TopRight,
+      });
+      return;
+    }
+
+    this.productService.create(
+      create_product,
+      () => {
+        this.hideSpinner(SpinnerType.BallAtom);
+        this.alertifyService.message('Product successfuly added!', {
+          isDismissOthers: true,
+          messageType: AlertifyMessageType.Success,
+          position: AlertifyMessagePosition.TopRight,
+        });
+      },
+      (errorMessage) => {
+        this.alertifyService.message(errorMessage, {
+          isDismissOthers: true,
+          messageType: AlertifyMessageType.Error,
+          position: AlertifyMessagePosition.TopRight,
+        });
+      }
+    );
   }
 }
