@@ -4,7 +4,7 @@ import {
 } from './../../../../services/admin/custom-alertify.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Create_Product } from 'src/app/contracts/create_product';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ProductService } from 'src/app/services/common/models/product.service';
 import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
 import { CustomAlertifyService } from 'src/app/services/admin/custom-alertify.service';
@@ -25,6 +25,8 @@ export class CreateComponent extends BaseComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  @Output() createdProduct: EventEmitter<Create_Product> = new EventEmitter();
+
   create(
     name: HTMLInputElement,
     stock: HTMLInputElement,
@@ -36,24 +38,6 @@ export class CreateComponent extends BaseComponent implements OnInit {
     create_product.stock = parseInt(stock.value);
     create_product.price = parseFloat(price.value);
 
-    if (!name.value) {
-      this.alertifyService.message('Name is Required', {
-        isDismissOthers: true,
-        messageType: AlertifyMessageType.Error,
-        position: AlertifyMessagePosition.TopRight,
-      });
-      return;
-    }
-
-    if (parseInt(stock.value) <= 0) {
-      this.alertifyService.message('Stock must be greater than or equal to 0', {
-        isDismissOthers: true,
-        messageType: AlertifyMessageType.Error,
-        position: AlertifyMessagePosition.TopRight,
-      });
-      return;
-    }
-
     this.productService.create(
       create_product,
       () => {
@@ -63,6 +47,7 @@ export class CreateComponent extends BaseComponent implements OnInit {
           messageType: AlertifyMessageType.Success,
           position: AlertifyMessagePosition.TopRight,
         });
+        this.createdProduct.emit(create_product);
       },
       (errorMessage) => {
         this.alertifyService.message(errorMessage, {

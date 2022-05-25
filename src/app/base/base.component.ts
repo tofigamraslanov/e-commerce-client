@@ -1,16 +1,16 @@
 import { NgxSpinnerService } from 'ngx-spinner';
 
 export class BaseComponent {
-  constructor(private spinner: NgxSpinnerService) {}
+  constructor(private spinnerService: NgxSpinnerService) {}
 
   showSpinner(spinnerType: SpinnerType) {
-    this.spinner.show(spinnerType);
+    this.spinnerService.show(spinnerType);
 
     setTimeout(() => this.hideSpinner(spinnerType), 1000);
   }
 
   hideSpinner(spinnerType: SpinnerType) {
-    this.spinner.hide(spinnerType);
+    this.spinnerService.hide(spinnerType);
   }
 }
 
