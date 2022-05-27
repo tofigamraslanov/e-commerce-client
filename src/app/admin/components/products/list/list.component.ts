@@ -11,6 +11,8 @@ import {
   CustomAlertifyService,
 } from 'src/app/services/admin/custom-alertify.service';
 
+declare var $: any;
+
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -31,6 +33,8 @@ export class ListComponent extends BaseComponent implements OnInit {
     'price',
     'createdDate',
     'updatedDate',
+    'edit',
+    'delete',
   ];
   dataSource: MatTableDataSource<List_Product> = null;
   @ViewChild(MatPaginator) paginator: MatPaginator;

@@ -42,7 +42,7 @@ export class CreateComponent extends BaseComponent implements OnInit {
       create_product,
       () => {
         this.hideSpinner(SpinnerType.BallAtom);
-        this.alertifyService.message('Product successfuly added!', {
+        this.alertifyService.message('Product successfuly created!', {
           isDismissOthers: true,
           messageType: AlertifyMessageType.Success,
           position: AlertifyMessagePosition.TopRight,
