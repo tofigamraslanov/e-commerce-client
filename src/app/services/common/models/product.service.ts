@@ -75,6 +75,6 @@ export class ProductService {
       id
     );
 
-    await lastValueFrom(deleteObservable).then(() => successCallBack());
+    await lastValueFrom(deleteObservable);
   }
 }
