@@ -1,4 +1,4 @@
-import { DeleteDialogComponent } from './../../../dialogs/delete-dialog/delete-dialog.component';
+import { DialogModule } from './../../../dialogs/dialog.module';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -8,11 +8,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatDialogModule } from '@angular/material/dialog';
 import { ProductsComponent } from './products.component';
 import { CreateComponent } from './create/create.component';
 import { ListComponent } from './list/list.component';
 import { DeleteDirective } from 'src/app/directives/admin/delete.directive';
+import { FileUploadModule } from './../../../services/common/file-upload/file-upload.module';
 
 @NgModule({
   declarations: [
@@ -20,7 +20,6 @@ import { DeleteDirective } from 'src/app/directives/admin/delete.directive';
     CreateComponent,
     ListComponent,
     DeleteDirective,
-    DeleteDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -31,7 +30,8 @@ import { DeleteDirective } from 'src/app/directives/admin/delete.directive';
     MatButtonModule,
     MatTableModule,
     MatPaginatorModule,
-    MatDialogModule,
+    FileUploadModule,
+    DialogModule,
   ],
 })
 export class ProductsModule {}

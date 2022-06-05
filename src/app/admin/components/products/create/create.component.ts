@@ -1,13 +1,14 @@
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import {
   AlertifyMessagePosition,
   AlertifyMessageType,
 } from './../../../../services/admin/custom-alertify.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Create_Product } from 'src/app/contracts/create_product';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ProductService } from 'src/app/services/common/models/product.service';
 import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
 import { CustomAlertifyService } from 'src/app/services/admin/custom-alertify.service';
+import { FileUploadOptions } from 'src/app/services/common/file-upload/file-upload.component';
 
 @Component({
   selector: 'app-create',
@@ -26,6 +27,13 @@ export class CreateComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {}
 
   @Output() createdProduct: EventEmitter<Create_Product> = new EventEmitter();
+  @Output() fileUploadOptions: Partial<FileUploadOptions> = {
+    action: 'upload',
+    controller: 'products',
+    explanation: 'Choose files...',
+    isAdminPage: true,
+    accept: '.png, .jpg, .jpeg,',
+  };
 
   create(
     name: HTMLInputElement,

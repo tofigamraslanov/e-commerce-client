@@ -1,3 +1,4 @@
+import { DialogService } from './../../services/common/dialog.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { HttpClientService } from 'src/app/services/common/http-client.service';
 import {
@@ -11,7 +12,7 @@ import {
 } from '@angular/core';
 import {
   DeleteDialogComponent,
-  DeleteState,
+  DeleteDialogState,
 } from './../../dialogs/delete-dialog/delete-dialog.component';
 import { SpinnerType } from './../../base/base.component';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -20,7 +21,6 @@ import {
   AlertifyMessageType,
   CustomAlertifyService,
 } from 'src/app/services/admin/custom-alertify.service';
-import { MatDialog } from '@angular/material/dialog';
 
 declare var $: any;
 
@@ -34,7 +34,7 @@ export class DeleteDirective {
     private httpClientService: HttpClientService,
     private spinnerService: NgxSpinnerService,
     private alertifyService: CustomAlertifyService,
-    public dialog: MatDialog
+    private dialogService: DialogService
   ) {
     const img = _renderer.createElement('img');
     img.setAttribute('src', 'assets/delete.png');
@@ -49,58 +49,51 @@ export class DeleteDirective {
 
   @HostListener('click')
   async onclick() {
-    this.openDialog(async () => {
-      this.spinnerService.show(SpinnerType.BallAtom);
-      const td: HTMLTableCellElement = this.element.nativeElement;
-      this.httpClientService
-        .delete(
-          {
-            controller: this.controller,
-          },
-          this.id
-        )
-        .subscribe(
-          () => {
-            $(td.parentElement).animate(
-              {
-                opacity: 0,
-                left: '+=50',
-                heught: 'toggle',
-              },
-              700,
-              () => {
-                this.callback.emit();
-                this.alertifyService.message('Product successfuly deleted', {
+    this.dialogService.openDialog({
+      componentType: DeleteDialogComponent,
+      data: DeleteDialogState.Yes,
+      afterClosed: async () => {
+        this.spinnerService.show(SpinnerType.BallAtom);
+        const td: HTMLTableCellElement = this.element.nativeElement;
+        this.httpClientService
+          .delete(
+            {
+              controller: this.controller,
+            },
+            this.id
+          )
+          .subscribe({
+            next: () => {
+              $(td.parentElement).animate(
+                {
+                  opacity: 0,
+                  left: '+=50',
+                  heught: 'toggle',
+                },
+                700,
+                () => {
+                  this.callback.emit();
+                  this.alertifyService.message('Product successfuly deleted', {
+                    isDismissOthers: true,
+                    messageType: AlertifyMessageType.Success,
+                    position: AlertifyMessagePosition.TopRight,
+                  });
+                }
+              );
+            },
+            error: (errorResponse: HttpErrorResponse) => {
+              this.spinnerService.hide(SpinnerType.BallAtom);
+              this.alertifyService.message(
+                'Unexpected error happened while deleting product',
+                {
                   isDismissOthers: true,
-                  messageType: AlertifyMessageType.Success,
+                  messageType: AlertifyMessageType.Error,
                   position: AlertifyMessagePosition.TopRight,
-                });
-              }
-            );
-          },
-          (errorResponse: HttpErrorResponse) => {
-            this.spinnerService.hide(SpinnerType.BallAtom);
-            this.alertifyService.message(
-              'Unexpected error happened while deleting product',
-              {
-                isDismissOthers: true,
-                messageType: AlertifyMessageType.Error,
-                position: AlertifyMessagePosition.TopRight,
-              }
-            );
-          }
-        );
-    });
-  }
-
-  openDialog(afterClosed: any): void {
-    const dialogRef = this.dialog.open(DeleteDialogComponent, {
-      width: '250px',
-      data: DeleteState.Yes,
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result == DeleteState.Yes) afterClosed();
+                }
+              );
+            },
+          });
+      },
     });
   }
 }
