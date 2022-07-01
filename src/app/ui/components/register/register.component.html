@@ -1,0 +1,109 @@
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-md-6 mt-3">
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)">
+      <div class="form-group mb-3">
+        <label for="fullname" class="mb-1 lead">Fullname</label>
+        <input
+          [ngClass]="{ 'is-invalid': submitted && component.fullname.errors }"
+          type="text"
+          formControlName="fullname"
+          class="form-control"
+          id="fullname"
+          placeholder="Fullname"
+        />
+        <small
+          *ngIf="submitted && component.fullname.errors?.required"
+          class="form-text text-muted invalid-feedback"
+          >Please do not leave the name and surname blank.</small
+        >
+        <small
+          *ngIf="
+            submitted &&
+            (component.fullname.errors?.maxlength ||
+              component.fullname.errors?.minlength)
+          "
+          class="form-text text-muted invalid-feedback"
+          >Please write your name and surname between 3 and 50
+          characters.</small
+        >
+      </div>
+      <div class="form-group mb-3">
+        <label for="username" class="mb-1 lead">Username</label>
+        <input
+          [ngClass]="{ 'is-invalid': submitted && component.username.errors }"
+          type="text"
+          formControlName="username"
+          class="form-control"
+          id="username"
+          placeholder="Username"
+        />
+        <small
+          *ngIf="submitted && component.username.errors?.required"
+          class="form-text text-muted invalid-feedback"
+          >Please do not leave the username blank.</small
+        >
+        <small
+          *ngIf="
+            submitted &&
+            (component.username.errors?.maxlength ||
+              component.username.errors?.minlength)
+          "
+          class="form-text text-muted invalid-feedback"
+          >Please write your username between 3 and 50 characters.</small
+        >
+      </div>
+      <div class="form-group mb-3">
+        <label for="email" class="mb-1 lead">Email</label>
+        <input
+          [ngClass]="{ 'is-invalid': submitted && component.email.errors }"
+          type="email"
+          formControlName="email"
+          class="form-control"
+          id="email"
+          placeholder="Email"
+        />
+        <small
+          *ngIf="submitted && component.email.errors.required"
+          class="form-text text-muted invalid-feedback"
+          >Please do not leave the email blank.</small
+        >
+        <small
+          *ngIf="submitted && component.email.errors.email"
+          class="form-text text-muted invalid-feedback"
+          >Please enter your email correctly.</small
+        >
+      </div>
+      <div class="form-group mb-3">
+        <label for="password" class="mb-1 lead">Password</label>
+        <input
+          [ngClass]="{ 'is-invalid': submitted && component.password.errors }"
+          type="password"
+          formControlName="password"
+          class="form-control"
+          id="password"
+          placeholder="Password"
+        />
+      </div>
+      <div class="form-group">
+        <label for="confirmPassword" class="mb-1 lead">Confirm Password</label>
+        <input
+          [ngClass]="{
+            'is-invalid': submitted && component.confirmPassword.errors
+          }"
+          type="password"
+          formControlName="confirmPassword"
+          class="form-control"
+          id="confirmPassword"
+          placeholder="Confirm Password"
+        />
+        <small *ngIf="submitted && formGroup.hasError('notSame')"
+          >Please confirm the password.</small
+        >
+      </div>
+      <br />
+      <button type="submit" class="btn btn-primary lead">Register</button>
+    </form>
+  </div>
+  <div class="col-md-3"></div>
+</div>
