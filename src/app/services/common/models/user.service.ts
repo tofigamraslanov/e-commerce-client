@@ -1,6 +1,6 @@
+import { Injectable } from '@angular/core';
 import { Observable, firstValueFrom } from 'rxjs';
 import { Create_User } from './../../../contracts/users/create_user';
-import { Injectable } from '@angular/core';
 import { HttpClientService } from '../http-client.service';
 import { User } from 'src/app/entities/User';
 
@@ -19,5 +19,25 @@ export class UserService {
         user
       );
     return (await firstValueFrom(observable)) as Create_User;
+  }
+
+  async login(
+    userNameOrEmail: string,
+    password: string,
+    callBackFunction?: () => void
+  ): Promise<void> {
+    const observable: Observable<any> = this.httpClientService.post(
+      {
+        controller: 'users',
+        action: 'login',
+      },
+      {
+        userNameOrEmail,
+        password,
+      }
+    );
+
+    await firstValueFrom(observable);
+    callBackFunction();
   }
 }

@@ -1,3 +1,5 @@
+import { NgxSpinnerService } from 'ngx-spinner';
+import { BaseComponent } from 'src/app/base/base.component';
 import { Component, OnInit } from '@angular/core';
 import {
   CustomToastrService,
@@ -20,12 +22,15 @@ import { User } from 'src/app/entities/User';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent extends BaseComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
-    private toastrService: CustomToastrService
-  ) {}
+    private toastrService: CustomToastrService,
+    spinnerService: NgxSpinnerService
+  ) {
+    super(spinnerService);
+  }
 
   formGroup: FormGroup;
 

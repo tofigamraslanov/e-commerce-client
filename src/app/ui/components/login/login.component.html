@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-md-6 mt-3">
+    <div class="form-group mb-3">
+      <label for="userName" class="mb-1 lead">UserName or Email</label>
+      <input
+        #txtUserNameOrEmail
+        type="text"
+        class="form-control"
+        id="userName"
+        placeholder="UserName or Email"
+      />
+      <small class="form-text text-muted invalid-feedback"
+        >Please do not leave the UserName blank.</small
+      >
+      <small class="form-text text-muted invalid-feedback"
+        >Please write your UserName between 3 and 50 characters.</small
+      >
+    </div>
+    <div class="form-group mb-3">
+      <label for="password" class="mb-1 lead">Password</label>
+      <input
+        #txtPassword
+        type="password"
+        class="form-control"
+        id="password"
+        placeholder="Password"
+      />
+      <small class="form-text text-muted invalid-feedback"
+        >Please do not leave the password blank.</small
+      >
+    </div>
+    <button
+      (click)="login(txtUserNameOrEmail.value, txtPassword.value)"
+      type="submit"
+      class="btn btn-primary lead"
+    >
+      Login
+    </button>
+  </div>
+  <div class="col-md-3"></div>
+</div>
