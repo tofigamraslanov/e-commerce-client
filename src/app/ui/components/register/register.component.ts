@@ -1,12 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import {
+  CustomToastrService,
+  ToastrMessagePosition,
+  ToastrMessageType,
+} from './../../../services/ui/custom-toastr.service';
+import { UserService } from './../../../services/common/models/user.service';
+import { Create_User } from './../../../contracts/users/create_user';
+import {
   AbstractControl,
   FormBuilder,
   FormGroup,
   ValidationErrors,
   Validators,
 } from '@angular/forms';
-import User from 'src/app/entities/User';
+import { User } from 'src/app/entities/User';
 
 @Component({
   selector: 'app-register',
@@ -14,14 +21,18 @@ import User from 'src/app/entities/User';
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private userService: UserService,
+    private toastrService: CustomToastrService
+  ) {}
 
   formGroup: FormGroup;
 
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group(
       {
-        fullname: [
+        fullName: [
           '',
           [
             Validators.required,
@@ -29,7 +40,7 @@ export class RegisterComponent implements OnInit {
             Validators.minLength(3),
           ],
         ],
-        username: [
+        userName: [
           '',
           [
             Validators.required,
@@ -60,11 +71,23 @@ export class RegisterComponent implements OnInit {
 
   submitted: boolean = false;
 
-  onSubmit(data: User) {
+  async onSubmit(user: User) {
     this.submitted = true;
 
-    debugger;
-
     if (this.formGroup.invalid) return;
+
+    const result: Create_User = await this.userService.create(user);
+
+    if (result.succeeded) {
+      this.toastrService.message(result.message, 'Success', {
+        messageType: ToastrMessageType.Success,
+        messagePosition: ToastrMessagePosition.TopRight,
+      });
+    } else {
+      this.toastrService.message(result.message, 'Error', {
+        messageType: ToastrMessageType.Error,
+        messagePosition: ToastrMessagePosition.TopRight,
+      });
+    }
   }
 }

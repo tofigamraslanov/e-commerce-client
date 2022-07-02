@@ -3,54 +3,53 @@
   <div class="col-md-6 mt-3">
     <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)">
       <div class="form-group mb-3">
-        <label for="fullname" class="mb-1 lead">Fullname</label>
+        <label for="fullName" class="mb-1 lead">FullName</label>
         <input
-          [ngClass]="{ 'is-invalid': submitted && component.fullname.errors }"
+          [ngClass]="{ 'is-invalid': submitted && component.fullName.errors }"
           type="text"
-          formControlName="fullname"
+          formControlName="fullName"
           class="form-control"
-          id="fullname"
-          placeholder="Fullname"
+          id="fullName"
+          placeholder="FullName"
         />
         <small
-          *ngIf="submitted && component.fullname.errors?.required"
+          *ngIf="submitted && component.fullName.errors?.required"
           class="form-text text-muted invalid-feedback"
-          >Please do not leave the name and surname blank.</small
+          >Please do not leave the FullName blank.</small
         >
         <small
           *ngIf="
             submitted &&
-            (component.fullname.errors?.maxlength ||
-              component.fullname.errors?.minlength)
+            (component.fullName.errors?.maxlength ||
+              component.fullName.errors?.minlength)
           "
           class="form-text text-muted invalid-feedback"
-          >Please write your name and surname between 3 and 50
-          characters.</small
+          >Please write your FullName between 3 and 50 characters.</small
         >
       </div>
       <div class="form-group mb-3">
-        <label for="username" class="mb-1 lead">Username</label>
+        <label for="userName" class="mb-1 lead">UserName</label>
         <input
-          [ngClass]="{ 'is-invalid': submitted && component.username.errors }"
+          [ngClass]="{ 'is-invalid': submitted && component.userName.errors }"
           type="text"
-          formControlName="username"
+          formControlName="userName"
           class="form-control"
-          id="username"
-          placeholder="Username"
+          id="userName"
+          placeholder="UserName"
         />
         <small
-          *ngIf="submitted && component.username.errors?.required"
+          *ngIf="submitted && component.userName.errors?.required"
           class="form-text text-muted invalid-feedback"
-          >Please do not leave the username blank.</small
+          >Please do not leave the UserName blank.</small
         >
         <small
           *ngIf="
             submitted &&
-            (component.username.errors?.maxlength ||
-              component.username.errors?.minlength)
+            (component.userName.errors?.maxlength ||
+              component.userName.errors?.minlength)
           "
           class="form-text text-muted invalid-feedback"
-          >Please write your username between 3 and 50 characters.</small
+          >Please write your UserName between 3 and 50 characters.</small
         >
       </div>
       <div class="form-group mb-3">
@@ -64,12 +63,12 @@
           placeholder="Email"
         />
         <small
-          *ngIf="submitted && component.email.errors.required"
+          *ngIf="submitted && component.email.errors?.required"
           class="form-text text-muted invalid-feedback"
           >Please do not leave the email blank.</small
         >
         <small
-          *ngIf="submitted && component.email.errors.email"
+          *ngIf="submitted && component.email.errors?.email"
           class="form-text text-muted invalid-feedback"
           >Please enter your email correctly.</small
         >
@@ -84,6 +83,11 @@
           id="password"
           placeholder="Password"
         />
+        <small
+          *ngIf="submitted && component.password.errors?.required"
+          class="form-text text-muted invalid-feedback"
+          >Please do not leave the password blank.</small
+        >
       </div>
       <div class="form-group">
         <label for="confirmPassword" class="mb-1 lead">Confirm Password</label>
@@ -97,6 +101,11 @@
           id="confirmPassword"
           placeholder="Confirm Password"
         />
+        <small
+          *ngIf="submitted && component.confirmPassword.errors?.required"
+          class="form-text text-muted invalid-feedback"
+          >Please do not leave the confirm password blank.</small
+        >
         <small *ngIf="submitted && formGroup.hasError('notSame')"
           >Please confirm the password.</small
         >
