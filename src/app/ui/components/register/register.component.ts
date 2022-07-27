@@ -6,6 +6,7 @@ import {
   ToastrMessagePosition,
   ToastrMessageType,
 } from './../../../services/ui/custom-toastr.service';
+import { User } from './../../../entities/user';
 import { UserService } from './../../../services/common/models/user.service';
 import { Create_User } from './../../../contracts/users/create_user';
 import {
@@ -15,7 +16,6 @@ import {
   ValidationErrors,
   Validators,
 } from '@angular/forms';
-import { User } from 'src/app/entities/User';
 
 @Component({
   selector: 'app-register',
