@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { UiModule } from './ui/ui.module';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { JwtModule } from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,6 +22,13 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     ToastrModule.forRoot(),
     NgxSpinnerModule,
     HttpClientModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => localStorage.getItem('token'),
+        allowedDomains: ['localhost:7275'],
+        // disallowedRoutes
+      },
+    }),
   ],
   providers: [
     {

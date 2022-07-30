@@ -1,14 +1,13 @@
+import { Injectable } from '@angular/core';
 import { TokenResponse } from './../../../contracts/token/tokenResponse';
 import {
   CustomToastrService,
   ToastrMessagePosition,
   ToastrMessageType,
 } from './../../ui/custom-toastr.service';
-import { Injectable } from '@angular/core';
 import { Observable, firstValueFrom } from 'rxjs';
 import { Create_User } from './../../../contracts/users/create_user';
 import { HttpClientService } from '../http-client.service';
-import { AccessToken } from 'src/app/contracts/token/access_token';
 import { User } from './../../../entities/user';
 
 @Injectable({
