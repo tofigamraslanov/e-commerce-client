@@ -31,7 +31,11 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" routerLink="login"
+            <a
+              class="nav-link active"
+              aria-current="page"
+              routerLink="login"
+              *ngIf="!authService.isAuthenticated"
               >Login
             </a>
           </li>
@@ -40,8 +44,20 @@
               class="nav-link active"
               aria-current="page"
               routerLink="register"
+              *ngIf="!authService.isAuthenticated"
             >
               Register
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link active"
+              style="color: red; cursor: pointer"
+              aria-current="page"
+              (click)="signOut()"
+              *ngIf="authService.isAuthenticated"
+            >
+              Sign Out
             </a>
           </li>
           <li class="nav-item">
@@ -49,10 +65,11 @@
               class="btn btn-outline-success"
               aria-current="page"
               routerLink="admin"
+              *ngIf="authService.isAuthenticated"
               >Admin Panel
             </a>
           </li>
-          <li class="nav-item dropdown">
+          <!-- <li class="nav-item dropdown">
             <a
               class="nav-link dropdown-toggle"
               href="#"
@@ -72,9 +89,9 @@
           </li>
           <li class="nav-item">
             <a class="nav-link disabled">Disabled</a>
-          </li>
+          </li> -->
         </ul>
-        <form class="d-flex">
+        <!-- <form class="d-flex">
           <input
             class="form-control me-2"
             type="search"
@@ -82,7 +99,7 @@
             aria-label="Search"
           />
           <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
+        </form> -->
       </div>
     </div>
   </nav>

@@ -1,3 +1,4 @@
+import { _isAuthenticated } from './../../services/common/auth.service';
 import { SpinnerType } from './../../base/base.component';
 import { NgxSpinnerService } from 'ngx-spinner';
 import {
@@ -12,14 +13,12 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
-import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
   constructor(
-    private jwtHelperService: JwtHelperService,
     private router: Router,
     private toastrService: CustomToastrService,
     private spinnerService: NgxSpinnerService
@@ -28,16 +27,7 @@ export class AuthGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     this.spinnerService.show(SpinnerType.BallAtom);
 
-    const token: string = localStorage.getItem('token');
-
-    let isExpired: boolean;
-    try {
-      isExpired = this.jwtHelperService.isTokenExpired(token);
-    } catch {
-      isExpired = true;
-    }
-
-    if (!token || isExpired) {
+    if (!_isAuthenticated) {
       this.router.navigate(['login'], {
         queryParams: { returnUrl: state.url },
       });
