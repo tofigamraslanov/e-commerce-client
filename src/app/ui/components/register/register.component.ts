@@ -11,8 +11,8 @@ import { UserService } from './../../../services/common/models/user.service';
 import { Create_User } from './../../../contracts/users/create_user';
 import {
   AbstractControl,
-  FormBuilder,
-  FormGroup,
+  UntypedFormBuilder,
+  UntypedFormGroup,
   ValidationErrors,
   Validators,
 } from '@angular/forms';
@@ -24,7 +24,7 @@ import {
 })
 export class RegisterComponent extends BaseComponent implements OnInit {
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private userService: UserService,
     private toastrService: CustomToastrService,
     spinnerService: NgxSpinnerService
@@ -32,7 +32,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
     super(spinnerService);
   }
 
-  formGroup: FormGroup;
+  formGroup: UntypedFormGroup;
 
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group(
