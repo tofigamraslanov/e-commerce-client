@@ -30,8 +30,14 @@
         >Please do not leave the password blank.</small
       >
     </div>
-
-    <asl-google-signin-button></asl-google-signin-button>
+    <div class="d-flex gap-2">
+      <asl-google-signin-button></asl-google-signin-button>
+      <img
+        src="../../../../assets/facebook-logo.png"
+        style="height: 32px; cursor: pointer"
+        (click)="facebookLogin()"
+      />
+    </div>
     <button
       (click)="login(txtUserNameOrEmail.value, txtPassword.value)"
       type="submit"

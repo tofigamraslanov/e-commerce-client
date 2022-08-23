@@ -6,7 +6,11 @@ import { AuthService } from './../../../services/common/auth.service';
 import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
 import { UserService } from './../../../services/common/models/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
+import {
+  FacebookLoginProvider,
+  SocialAuthService,
+  SocialUser,
+} from '@abacritt/angularx-social-login';
 
 @Component({
   selector: 'app-login',
@@ -26,10 +30,20 @@ export class LoginComponent extends BaseComponent implements OnInit {
     socialAuthService.authState.subscribe(async (user: SocialUser) => {
       this.showSpinner(SpinnerType.BallAtom);
 
-      await this.userService.googleLogin(user, () => {
-        this.authService.identityCheck();
-        this.hideSpinner(SpinnerType.BallAtom);
-      });
+      switch (user.provider) {
+        case 'GOOGLE':
+          await this.userService.googleLogin(user, () => {
+            this.authService.identityCheck();
+            this.hideSpinner(SpinnerType.BallAtom);
+          });
+          break;
+        case 'FACEBOOK':
+          await this.userService.facebookLogin(user, () => {
+            this.authService.identityCheck();
+            this.hideSpinner(SpinnerType.BallAtom);
+          });
+          break;
+      }
     });
   }
 
@@ -45,5 +59,9 @@ export class LoginComponent extends BaseComponent implements OnInit {
       });
       this.hideSpinner(SpinnerType.BallSpinClockwiseFadeRotating);
     });
+  }
+
+  facebookLogin() {
+    this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
   }
 }
