@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Create_Product } from 'src/app/contracts/create_product';
-import { BaseComponent } from 'src/app/base/base.component';
+import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
 import { ListComponent } from './list/list.component';
 
 @Component({
@@ -10,8 +10,8 @@ import { ListComponent } from './list/list.component';
   styleUrls: ['./products.component.scss'],
 })
 export class ProductsComponent extends BaseComponent implements OnInit {
-  constructor(spinner: NgxSpinnerService) {
-    super(spinner);
+  constructor(spinnerService: NgxSpinnerService) {
+    super(spinnerService);
   }
 
   ngOnInit(): void {}

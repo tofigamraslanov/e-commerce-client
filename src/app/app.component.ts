@@ -22,7 +22,7 @@ export class AppComponent {
   }
 
   signOut() {
-    localStorage.removeItem('token');
+    localStorage.removeItem('accessToken');
     this.authService.identityCheck();
     this.router.navigate(['']);
     this.toastrSerice.message('You are logged out', 'Logged Out', {

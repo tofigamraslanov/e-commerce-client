@@ -30,10 +30,12 @@
         >Please do not leave the password blank.</small
       >
     </div>
+
+    <asl-google-signin-button></asl-google-signin-button>
     <button
       (click)="login(txtUserNameOrEmail.value, txtPassword.value)"
       type="submit"
-      class="btn btn-primary lead"
+      class="btn btn-primary lead mt-3"
     >
       Login
     </button>

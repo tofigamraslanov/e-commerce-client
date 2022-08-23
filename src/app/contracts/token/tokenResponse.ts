@@ -1,5 +1,5 @@
-import { AccessToken } from './access_token';
+import { Token } from './token';
 
 export class TokenResponse {
-  accessToken: AccessToken;
+  token: Token;
 }
