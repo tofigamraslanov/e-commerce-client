@@ -1,5 +1,4 @@
-import { TokenResponse } from './../../../contracts/token/tokenResponse';
-import { HttpClientService } from './../../../services/common/http-client.service';
+import { UserAuthService } from './../../../services/common/models/user-auth.service';
 import { Component, OnInit } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from './../../../services/common/auth.service';
@@ -24,7 +23,8 @@ export class LoginComponent extends BaseComponent implements OnInit {
     private authService: AuthService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private socialAuthService: SocialAuthService
+    private socialAuthService: SocialAuthService,
+    private userAuthService: UserAuthService
   ) {
     super(spinnerService);
     socialAuthService.authState.subscribe(async (user: SocialUser) => {
@@ -32,13 +32,13 @@ export class LoginComponent extends BaseComponent implements OnInit {
 
       switch (user.provider) {
         case 'GOOGLE':
-          await this.userService.googleLogin(user, () => {
+          await this.userAuthService.googleLogin(user, () => {
             this.authService.identityCheck();
             this.hideSpinner(SpinnerType.BallAtom);
           });
           break;
         case 'FACEBOOK':
-          await this.userService.facebookLogin(user, () => {
+          await this.userAuthService.facebookLogin(user, () => {
             this.authService.identityCheck();
             this.hideSpinner(SpinnerType.BallAtom);
           });
@@ -51,7 +51,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
 
   async login(userNameOrEmail: string, password: string) {
     this.showSpinner(SpinnerType.BallSpinClockwiseFadeRotating);
-    await this.userService.login(userNameOrEmail, password, () => {
+    await this.userAuthService.login(userNameOrEmail, password, () => {
       this.authService.identityCheck();
       this.activatedRoute.queryParams.subscribe((params) => {
         const returnUrl: string = params['returnUrl'];
