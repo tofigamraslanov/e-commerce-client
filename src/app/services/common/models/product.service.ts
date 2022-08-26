@@ -49,15 +49,15 @@ export class ProductService {
     const promiseData: Promise<{
       productsCount: number;
       products: List_Product[];
-    }> = lastValueFrom(
-      this.httpClientService.get<{
+    }> = this.httpClientService
+      .get<{
         productsCount: number;
         products: List_Product[];
       }>({
         controller: 'products',
         queryString: `page=${page}&size=${size}`,
       })
-    );
+      .toPromise();
 
     promiseData
       .then(() => successCallBack())

@@ -1,3 +1,4 @@
+import { AuthService } from './auth.service';
 import {
   HttpEvent,
   HttpHandler,
@@ -12,12 +13,16 @@ import {
   ToastrMessagePosition,
   ToastrMessageType,
 } from '../ui/custom-toastr.service';
+import { UserAuthService } from './models/user-auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HttpErrorHandlerInterceptorService implements HttpInterceptor {
-  constructor(private toastrService: CustomToastrService) {}
+  constructor(
+    private toastrService: CustomToastrService,
+    private userAuthService: UserAuthService
+  ) {}
 
   intercept(
     req: HttpRequest<any>,
@@ -35,6 +40,11 @@ export class HttpErrorHandlerInterceptorService implements HttpInterceptor {
                 messagePosition: ToastrMessagePosition.BottomFullWidth,
               }
             );
+            console.log('Interceptor');
+
+            this.userAuthService
+              .refreshToken(localStorage.getItem('refreshToken'))
+              .then((data) => {});
             break;
           case HttpStatusCode.InternalServerError:
             this.toastrService.message(

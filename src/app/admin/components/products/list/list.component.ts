@@ -57,10 +57,11 @@ export class ListComponent extends BaseComponent implements OnInit {
             position: AlertifyMessagePosition.TopRight,
           })
       );
+
     this.dataSource = new MatTableDataSource<List_Product>(
-      productsData.products
+      productsData?.products
     );
-    this.paginator.length = productsData.productsCount;
+    this.paginator.length = productsData?.productsCount;
   }
 
   addProductImages(id: string) {
