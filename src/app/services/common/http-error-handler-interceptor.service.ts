@@ -40,7 +40,6 @@ export class HttpErrorHandlerInterceptorService implements HttpInterceptor {
                 messagePosition: ToastrMessagePosition.BottomFullWidth,
               }
             );
-            console.log('Interceptor');
 
             this.userAuthService
               .refreshToken(localStorage.getItem('refreshToken'))
