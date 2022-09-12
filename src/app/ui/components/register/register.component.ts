@@ -8,7 +8,7 @@ import {
 } from './../../../services/ui/custom-toastr.service';
 import { User } from './../../../entities/user';
 import { UserService } from './../../../services/common/models/user.service';
-import { Create_User } from './../../../contracts/users/create_user';
+import { CreateUser } from '../../../contracts/users/createUser';
 import {
   AbstractControl,
   UntypedFormBuilder,
@@ -81,7 +81,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
 
     if (this.formGroup.invalid) return;
 
-    const result: Create_User = await this.userService.create(user);
+    const result: CreateUser = await this.userService.create(user);
 
     if (result.succeeded) {
       this.toastrService.message(result.message, 'Success', {

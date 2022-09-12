@@ -7,7 +7,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogService } from './../../services/common/dialog.service';
 import { SpinnerType } from './../../base/base.component';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { List_Product_Image } from './../../contracts/list_product_image';
+import { ProductImageList } from '../../contracts/productImageList';
 import { FileUploadOptions } from 'src/app/services/common/file-upload/file-upload.component';
 import { BaseDialog } from './../base/base-dialog';
 import { ProductService } from 'src/app/services/common/models/product.service';
@@ -42,7 +42,7 @@ export class ProductImageDialogComponent
     queryString: `id=${this.data}`,
   };
 
-  productImages: List_Product_Image[];
+  productImages: ProductImageList[];
 
   async ngOnInit(): Promise<void> {
     this.spinnerService.show(SpinnerType.BallAtom);
@@ -58,7 +58,7 @@ export class ProductImageDialogComponent
       data: DeleteDialogState.Yes,
       afterClosed: async () => {
         this.spinnerService.show(SpinnerType.BallAtom);
-        await this.productService.deleteImages(
+        await this.productService.deleteImage(
           this.data as string,
           imageId,
           () => {
@@ -69,6 +69,18 @@ export class ProductImageDialogComponent
         );
       },
     });
+  }
+
+  showCase(imageId) {
+    this.spinnerService.show(SpinnerType.BallAtom);
+
+    this.productService.changeShowcaseImage(
+      imageId,
+      this.data as string,
+      () => {
+        this.spinnerService.hide(SpinnerType.BallAtom);
+      }
+    );
   }
 }
 

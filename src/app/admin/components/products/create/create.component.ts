@@ -4,7 +4,7 @@ import {
   AlertifyMessageType,
 } from './../../../../services/admin/custom-alertify.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { Create_Product } from 'src/app/contracts/create_product';
+import { CreateProduct } from 'src/app/contracts/createProduct';
 import { ProductService } from 'src/app/services/common/models/product.service';
 import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
 import { CustomAlertifyService } from 'src/app/services/admin/custom-alertify.service';
@@ -26,7 +26,7 @@ export class CreateComponent extends BaseComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  @Output() createdProduct: EventEmitter<Create_Product> = new EventEmitter();
+  @Output() createdProduct: EventEmitter<CreateProduct> = new EventEmitter();
 
   create(
     name: HTMLInputElement,
@@ -34,7 +34,7 @@ export class CreateComponent extends BaseComponent implements OnInit {
     price: HTMLInputElement
   ) {
     this.showSpinner(SpinnerType.BallAtom);
-    const create_product = new Create_Product();
+    const create_product = new CreateProduct();
     create_product.name = name.value;
     create_product.stock = parseInt(stock.value);
     create_product.price = parseFloat(price.value);

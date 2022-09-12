@@ -7,9 +7,7 @@ import {
   ToastrMessageType,
 } from './../../ui/custom-toastr.service';
 import { Observable, firstValueFrom } from 'rxjs';
-import { Create_User } from './../../../contracts/users/create_user';
 import { HttpClientService } from '../http-client.service';
-import { User } from './../../../entities/user';
 
 @Injectable({
   providedIn: 'root',

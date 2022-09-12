@@ -4,7 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
-import { List_Product } from 'src/app/contracts/list_product';
+import { ProductList } from 'src/app/contracts/productList';
 import { ProductService } from 'src/app/services/common/models/product.service';
 import {
   AlertifyMessagePosition,
@@ -40,12 +40,12 @@ export class ListComponent extends BaseComponent implements OnInit {
     'edit',
     'delete',
   ];
-  dataSource: MatTableDataSource<List_Product> = null;
+  dataSource: MatTableDataSource<ProductList> = null;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   async getProducts() {
     this.showSpinner(SpinnerType.BallAtom);
-    const productsData: { productsCount: number; products: List_Product[] } =
+    const productsData: { productsCount: number; products: ProductList[] } =
       await this.productService.read(
         this.paginator ? this.paginator.pageIndex : 0,
         this.paginator ? this.paginator.pageSize : 5,
@@ -58,7 +58,7 @@ export class ListComponent extends BaseComponent implements OnInit {
           })
       );
 
-    this.dataSource = new MatTableDataSource<List_Product>(
+    this.dataSource = new MatTableDataSource<ProductList>(
       productsData?.products
     );
     this.paginator.length = productsData?.productsCount;
